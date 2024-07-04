@@ -22,7 +22,7 @@ const generateUI = (articles) => {
     let card = document.createElement("div");
     card.classList.add("news-card");
     card.innerHTML = `<div class="news-image-container">
-    <img src="${item.urlToImage || "./newspaper.jpeg"}" alt="" />
+    <img src="${item.image || "./newspaper.jpeg"}" alt="" />
     </div>
     <div class="news-content">
       <div class="news-title">
@@ -51,15 +51,16 @@ const getNews = async () => {
 
 //Category Selection
 const selectCategory = (e, category) => {
+  console.log(category)
   let options = document.querySelectorAll(".option");
   options.forEach((element) => {
     element.classList.remove("active");
   });
-  requestURL = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${apiKey}`;
+  requestURL = `https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&country=${country}&apikey=${apiKey}`;
   e.target.classList.add("active");
   getNews();
 };
-
+// https://gnews.io/api/v4/top-headlines?category=' + category + '&lang=en&country=us&max=10&apikey=' + apikey
 //Options Buttons
 const createOptions = () => {
   for (let i of options) {
@@ -76,6 +77,6 @@ const init = () => {
 };
 
 window.onload = () => {
-  requestURL = `https://newsapi.org/v2/top-headlines?country=${country}&category=general&apiKey=${apiKey}`;
+  requestURL = `https://gnews.io/api/v4/top-headlines?&category=general&country=${country}&apikey=${apiKey}`;
   init();
 };
